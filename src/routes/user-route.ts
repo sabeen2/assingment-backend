@@ -72,5 +72,3 @@ userRouter.get("/test", jwtAuth, async (req: Request, res: Response) => {
 });
 
 export default userRouter;
-
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhYmVlbiIsImlhdCI6MTcyMjE4ODI3NiwiZXhwIjoxNzIyMjc0Njc2fQ.-NP8jIQc2xfwDj49PyTrOkNG7RBCqGI79u5mmseGZs0
