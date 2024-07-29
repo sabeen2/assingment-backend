@@ -43,12 +43,26 @@ userRouter.post("/signup", async (req: Request, res: Response) => {
 });
 
 userRouter.post("/login", userAuth, async (req: Request, res: Response) => {
-  const { username } = req.body;
+  const { email } = req.body;
 
   try {
-    const token = jwt.sign({ username }, process.env.JWT_SECRET as string, {
-      expiresIn: "24h",
-    });
+    // Find the user by email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(403).json({
+        success: false,
+        msg: "User not found",
+      });
+    }
+
+    const token = jwt.sign(
+      { username: user.username },
+      process.env.JWT_SECRET as string,
+      {
+        expiresIn: "24h",
+      }
+    );
 
     res.status(200).json({
       success: true,
@@ -64,13 +78,11 @@ userRouter.post("/login", userAuth, async (req: Request, res: Response) => {
   }
 });
 
-userRouter.get("/test", jwtAuth, async (req: Request, res: Response) => {
-  return res.send({
-    success: "true",
-    msg: "Successfull jwtAuth",
-  });
-});
+// userRouter.get("/test", jwtAuth, async (req: Request, res: Response) => {
+//   return res.send({
+//     success: "true",
+//     msg: "Successfull jwtAuth",
+//   });
+// });
 
 export default userRouter;
-
-//hello changes

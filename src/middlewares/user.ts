@@ -11,10 +11,10 @@ export const userAuth = async (
   res: Response,
   next: NextFunction
 ): Promise<Response | void> => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(403).json({
