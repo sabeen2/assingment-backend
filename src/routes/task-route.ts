@@ -36,6 +36,39 @@ taskRouter.post("/add-task", jwtAuth, async (req: Request, res: Response) => {
 });
 
 // Get all tasks for a user
+// taskRouter.get(
+//   "/getAll/:username",
+//   jwtAuth,
+//   async (req: Request, res: Response) => {
+//     const { username } = req.params;
+
+//     try {
+//       const user = await User.findOne({ username });
+
+//       if (!user) {
+//         return res.status(404).json({
+//           success: false,
+//           msg: "User not found",
+//         });
+//       }
+
+//       const tasks = await Task.find({ createdBy: user._id });
+
+//       res.status(200).json({
+//         success: true,
+//         tasks,
+//       });
+//     } catch (error) {
+//       console.error("Error retrieving tasks:", error);
+//       return res.status(500).json({
+//         success: false,
+//         msg: "Internal server error",
+//       });
+//     }
+//   }
+// );
+
+
 taskRouter.get(
   "/getAll/:username",
   jwtAuth,
@@ -43,6 +76,7 @@ taskRouter.get(
     const { username } = req.params;
 
     try {
+      // Find user by username
       const user = await User.findOne({ username });
 
       if (!user) {
