@@ -8,7 +8,7 @@ const { Router } = require("express");
 const taskRouter = Router();
 
 taskRouter.post("/add-task", jwtAuth, async (req: Request, res: Response) => {
-  const { title, description, status, getPriority, deadline, username } =
+  const { title, description, status, priority, deadline, username } =
     req.body;
 
   const user = await User.findOne({ username });
@@ -23,7 +23,7 @@ taskRouter.post("/add-task", jwtAuth, async (req: Request, res: Response) => {
     title,
     description,
     status,
-    getPriority,
+    priority,
     deadline,
     createdBy: user?._id,
   });
